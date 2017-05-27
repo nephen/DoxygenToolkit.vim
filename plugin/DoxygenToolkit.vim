@@ -783,6 +783,17 @@ function! <SID>DoxygenCommentFunc()
     exec "normal o".s:interCommentTag.g:DoxygenToolkit_returnTag
   endif
 
+  " Author and Date
+  if( g:DoxygenToolkit_compactDoc != "yes" )
+    exec "normal o".substitute( s:interCommentTag, "[[:blank:]]*$", "", "" )
+  endif
+  exec "normal o".s:interCommentTag.g:DoxygenToolkit_authorTag.g:DoxygenToolkit_authorName
+  if( g:DoxygenToolkit_compactDoc != "yes" )
+    exec "normal o".substitute( s:interCommentTag, "[[:blank:]]*$", "", "" )
+  endif
+  let l:date = strftime("%Y-%m-%d")
+  exec "normal o".s:interCommentTag.g:DoxygenToolkit_dateTag.l:date
+
   " Exception (throw) values (cpp only)
   if( len( l:doc.throws ) > 0 )
     if( g:DoxygenToolkit_compactDoc =~ "yes" )
